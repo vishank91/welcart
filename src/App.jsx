@@ -13,6 +13,8 @@ import FaqPage from "./Pages/FaqPage"
 import TestimonialPage from "./Pages/TestimonialPage"
 import ContactUsPage from "./Pages/ContactUsPage"
 import ErrorPage from "./Pages/ErrorPage"
+import AdminHomePage from './Pages/Admin/AdminHomePage'
+import AdminMaincategoryPage from './Pages/Admin/Maincategory/AdminMaincategoryPage'
 export default function App() {
   return (
     <BrowserRouter>
@@ -26,6 +28,11 @@ export default function App() {
         <Route path='/faq' element={<FaqPage />} />
         <Route path='/testimonial' element={<TestimonialPage />} />
         <Route path='/contactus' element={<ContactUsPage />} />
+
+        {/* Admin Routes */}
+        <Route path='/admin' element={<AdminHomePage />} />
+
+        <Route path='/admin/maincategory' element={<AdminMaincategoryPage />} />
 
         <Route path='/*' element={<ErrorPage />} />
       </Routes>

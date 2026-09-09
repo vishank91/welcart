@@ -1,4 +1,26 @@
 import React from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCube } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-cube';
+import 'swiper/css/pagination';
+
+const sliderOptions = {
+    effect: 'cube',
+    grabCursor: true,
+    loop:true,
+    cubeEffect: {
+        shadow: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 0.94,
+    },
+    pagination: false,
+    modules: [EffectCube],
+    className: "mySwiper"
+}
 
 export default function Testimonial() {
     return (
@@ -26,88 +48,96 @@ export default function Testimonial() {
                             </div>
                         </div>
                         <div className="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
-                            <div className="owl-carousel testimonial-carousel">
-                                <div className="testimonial-item">
-                                    <div className="d-flex align-items-center mb-4">
-                                        <img className="img-fluid" src="img/testimonial-1.jpg" alt="" />
-                                        <div className="ms-3">
-                                            <div className="mb-2">
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
+                            <Swiper {...sliderOptions}>
+                                <SwiperSlide>
+                                    <div className="testimonial-item" style={{ backgroundColor: "lightgray", height: 400, padding: 40 }}>
+                                        <div className="d-flex align-items-center mb-4">
+                                            <img className="img-fluid" src="img/testimonial-1.jpg" alt="" />
+                                            <div className="ms-3">
+                                                <div className="mb-2">
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                </div>
+                                                <h5 className="text-uppercase">Client Name</h5>
+                                                <span>Profession</span>
                                             </div>
-                                            <h5 className="text-uppercase">Client Name</h5>
-                                            <span>Profession</span>
                                         </div>
+                                        <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
+                                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                                        </p>
                                     </div>
-                                    <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                                        lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </p>
-                                </div>
-                                <div className="testimonial-item">
-                                    <div className="d-flex align-items-center mb-4">
-                                        <img className="img-fluid" src="img/testimonial-2.jpg" alt="" />
-                                        <div className="ms-3">
-                                            <div className="mb-2">
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <div className="testimonial-item" style={{ backgroundColor: "lightgray", height: 400, padding: 40 }}>
+                                        <div className="d-flex align-items-center mb-4">
+                                            <img className="img-fluid" src="img/testimonial-2.jpg" alt="" />
+                                            <div className="ms-3">
+                                                <div className="mb-2">
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                </div>
+                                                <h5 className="text-uppercase">Client Name</h5>
+                                                <span>Profession</span>
                                             </div>
-                                            <h5 className="text-uppercase">Client Name</h5>
-                                            <span>Profession</span>
                                         </div>
+                                        <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
+                                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                                        </p>
                                     </div>
-                                    <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                                        lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </p>
-                                </div>
-                                <div className="testimonial-item">
-                                    <div className="d-flex align-items-center mb-4">
-                                        <img className="img-fluid" src="img/testimonial-3.jpg" alt="" />
-                                        <div className="ms-3">
-                                            <div className="mb-2">
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <div className="testimonial-item" style={{ backgroundColor: "lightgray", height: 400, padding: 40 }}>
+                                        <div className="d-flex align-items-center mb-4">
+                                            <img className="img-fluid" src="img/testimonial-3.jpg" alt="" />
+                                            <div className="ms-3">
+                                                <div className="mb-2">
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                </div>
+                                                <h5 className="text-uppercase">Client Name</h5>
+                                                <span>Profession</span>
                                             </div>
-                                            <h5 className="text-uppercase">Client Name</h5>
-                                            <span>Profession</span>
                                         </div>
+                                        <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
+                                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                                        </p>
                                     </div>
-                                    <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                                        lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </p>
-                                </div>
-                                <div className="testimonial-item">
-                                    <div className="d-flex align-items-center mb-4">
-                                        <img className="img-fluid" src="img/testimonial-4.jpg" alt="" />
-                                        <div className="ms-3">
-                                            <div className="mb-2">
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
-                                                <i className="far fa-star text-primary"></i>
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <div className="testimonial-item" style={{ backgroundColor: "lightgray", height: 400, padding: 40 }}>
+                                        <div className="d-flex align-items-center mb-4">
+                                            <img className="img-fluid" src="img/testimonial-4.jpg" alt="" />
+                                            <div className="ms-3">
+                                                <div className="mb-2">
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                    <i className="far fa-star text-primary"></i>
+                                                </div>
+                                                <h5 className="text-uppercase">Client Name</h5>
+                                                <span>Profession</span>
                                             </div>
-                                            <h5 className="text-uppercase">Client Name</h5>
-                                            <span>Profession</span>
                                         </div>
+                                        <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
+                                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                                        </p>
                                     </div>
-                                    <p className="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                                        lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </p>
-                                </div>
-                            </div>
+                                </SwiperSlide>
+                            </Swiper>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
