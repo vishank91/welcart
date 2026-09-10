@@ -15,6 +15,7 @@ import ContactUsPage from "./Pages/ContactUsPage"
 import ErrorPage from "./Pages/ErrorPage"
 import AdminHomePage from './Pages/Admin/AdminHomePage'
 import AdminMaincategoryPage from './Pages/Admin/Maincategory/AdminMaincategoryPage'
+import AdminMaincategoryCreatePage from './Pages/Admin/Maincategory/AdminMaincategoryCreatePage'
 export default function App() {
   return (
     <BrowserRouter>
@@ -33,6 +34,7 @@ export default function App() {
         <Route path='/admin' element={<AdminHomePage />} />
 
         <Route path='/admin/maincategory' element={<AdminMaincategoryPage />} />
+        <Route path='/admin/maincategory/create' element={<AdminMaincategoryCreatePage />} />
 
         <Route path='/*' element={<ErrorPage />} />
       </Routes>
