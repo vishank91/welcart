@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import AdminSidebar from '../../../Components/Admin/AdminSidebar'
 
 import TextValidator from '../../../Validators/TextValidator'
 import ImageValidaror from '../../../Validators/ImageValidaror'
 
-export default function AdminMaincategoryCreatePage() {
+export default function AdminMaincategoryUpdatePage() {
+    let { id } = useParams()
     let [data, setData] = useState({
         name: "",
         pic: "",
@@ -14,8 +15,8 @@ export default function AdminMaincategoryCreatePage() {
     })
 
     let [errorMessage, setErrorMessage] = useState({
-        name: "Name Field is Mendatory",
-        pic: "Pic Field is Mendatory"
+        name: "",
+        pic: ""
     })
 
     let [show, setShow] = useState(false)
@@ -40,14 +41,14 @@ export default function AdminMaincategoryCreatePage() {
             setShow(true)
         }
         else {
-            let item = MaincategoryStateData.find(x => x.name.toLocaleLowerCase() === data.name.toLocaleLowerCase())
+            let item = MaincategoryStateData.find(x => x.id !== id && x.name.toLocaleLowerCase() === data.name.toLocaleLowerCase())
             if (item) {
                 setShow(true)
                 setErrorMessage({ ...errorMessage, name: "Maincategory With This Name is Already Exist" })
                 return
             }
-            let response = await fetch(`${import.meta.env.VITE_APP_BACKEND_SERVER}/maincategory`, {
-                method: "POST",
+            let response = await fetch(`${import.meta.env.VITE_APP_BACKEND_SERVER}/maincategory/${id}`, {
+                method: "PUT",
                 headers: {
                     "content-type": "application/json"
                 },
@@ -71,7 +72,13 @@ export default function AdminMaincategoryCreatePage() {
                 }
             })
             response = await response.json()
-            setMaincategoryStateData(response)
+            let item = response.find(x => x.id === id)
+            if (item) {
+                setData({ ...data, ...item })
+                setMaincategoryStateData(response)
+            }
+            else
+                navigate("/admin/maincategory")
         })()
     }, [])
     return (
@@ -82,20 +89,20 @@ export default function AdminMaincategoryCreatePage() {
                         <AdminSidebar />
                     </div>
                     <div className="col-md-9">
-                        <h5 className='bg-primary  text-center p-2 text-light'>Create Maincategory
+                        <h5 className='bg-primary  text-center p-2 text-light'>Update Maincategory
                             <Link to="/admin/maincategory"><i className='bi bi-arrow-left text-light float-end'></i></Link>
                         </h5>
                         <form onSubmit={postData}>
                             <div className="row">
                                 <div className="col-12 mb-3">
                                     <label>Name*</label>
-                                    <input type="text" name="name" onChange={getInputData} placeholder='Full Name' className={`form-control ${show && errorMessage.name ? 'border-danger' : 'border-primary'}`} />
+                                    <input type="text" name="name" value={data.name} onChange={getInputData} placeholder='Full Name' className={`form-control ${show && errorMessage.name ? 'border-danger' : 'border-primary'}`} />
 
                                     {show && errorMessage.name ? <p className='text-danger text-capitalize'>{errorMessage.name}</p> : null}
                                 </div>
 
                                 <div className="col-md-6 mb-3">
-                                    <label>Pic*</label>
+                                    <label>Pic</label>
                                     <input type="file" name="pic" onChange={getInputData} className={`form-control ${show && errorMessage.pic ? 'border-danger' : 'border-primary'}`} />
 
                                     {show && errorMessage.pic ? <p className='text-danger text-capitalize'>{errorMessage.pic}</p> : null}
@@ -103,14 +110,14 @@ export default function AdminMaincategoryCreatePage() {
 
                                 <div className='col-md-6 mb-3'>
                                     <label>Status*</label>
-                                    <select name="status" onChange={getInputData} className='form-select border-primary'>
+                                    <select name="status" value={data.status ? "1" : "0"} onChange={getInputData} className='form-select border-primary'>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
 
                                 <div className="col-12 mb-3">
-                                    <button type="submit" className='btn btn-primary w-100'>Create</button>
+                                    <button type="submit" className='btn btn-primary w-100'>Update</button>
                                 </div>
                             </div>
                         </form>
