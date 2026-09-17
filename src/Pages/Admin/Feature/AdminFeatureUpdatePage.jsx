@@ -7,34 +7,34 @@ import AdminSidebar from '../../../Components/Admin/AdminSidebar'
 import TextValidator from '../../../Validators/TextValidator'
 import ImageValidaror from '../../../Validators/ImageValidaror'
 
-import { getMaincategory, updateMaincategory } from "../../../Redux/ActionCreators/MaincategoryActionCreators"
-export default function AdminMaincategoryUpdatePage() {
+import { getFeature, updateFeature } from "../../../Redux/ActionCreators/FeatureActionCreators"
+export default function AdminFeatureUpdatePage() {
     let { id } = useParams()
     let [data, setData] = useState({
         name: "",
-        pic: "",
+        icon: "",
+        shortDescription: "",
         status: true,
     })
 
     let [errorMessage, setErrorMessage] = useState({
         name: "",
-        pic: ""
+        icon: "",
+        shortDescription: ""
     })
 
     let [show, setShow] = useState(false)
 
     let navigate = useNavigate()
 
-    let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
+    let FeatureStateData = useSelector(state => state.FeatureStateData)
     let dispatch = useDispatch()
 
     function getInputData(e) {
-        let name = e.target.name
-        // let value = name === "pic" ? e.target.files[0] : e.target.value
-        let value = name === "pic" ? "maincategory/" + e.target.files[0].name : e.target.value
+        let { name, value } = e.target
 
         setData({ ...data, [name]: name === "status" ? (value === "1" ? true : false) : value })
-        setErrorMessage({ ...errorMessage, [name]: name === "pic" ? ImageValidaror(e) : TextValidator(e) })
+        setErrorMessage({ ...errorMessage, [name]: TextValidator(e) })
     }
 
     function postData(e) {
@@ -44,39 +44,29 @@ export default function AdminMaincategoryUpdatePage() {
             setShow(true)
         }
         else {
-            let item = MaincategoryStateData.find(x => x.id !== id && x.name.toLocaleLowerCase() === data.name.toLocaleLowerCase())
+            let item = FeatureStateData.find(x => x.id !== id && x.name.toLocaleLowerCase() === data.name.toLocaleLowerCase())
             if (item) {
                 setShow(true)
-                setErrorMessage({ ...errorMessage, name: "Maincategory With This Name is Already Exist" })
+                setErrorMessage({ ...errorMessage, name: "Feature With This Name is Already Exist" })
                 return
             }
-            dispatch(updateMaincategory({ ...data }))
-
-            // let formData = new FormData()
-            // formData.append("id", data.id)
-            // formData.append("name", data.name)
-            // formData.append("pic", data.pic)
-            // formData.append("status", data.status)
-            // dispatch(createMaincategory(formData))
-            // dispatch(updateMaincategory(FormData))
-
-
-            navigate("/admin/maincategory")
+            dispatch(updateFeature({ ...data }))
+            navigate("/admin/feature")
         }
     }
 
     useEffect(() => {
         (() => {
-            dispatch(getMaincategory())
-            if (MaincategoryStateData.length) {
-                let item = MaincategoryStateData.find(x => x.id === id)
+            dispatch(getFeature())
+            if (FeatureStateData.length) {
+                let item = FeatureStateData.find(x => x.id === id)
                 if (item)
                     setData({ ...data, ...item })
                 else
-                    navigate("/admin/maincategory")
+                    navigate("/admin/feature")
             }
         })()
-    }, [MaincategoryStateData.length])
+    }, [FeatureStateData.length])
     return (
         <>
             <div className="container-fluid my-3">
@@ -85,8 +75,8 @@ export default function AdminMaincategoryUpdatePage() {
                         <AdminSidebar />
                     </div>
                     <div className="col-md-9">
-                        <h5 className='bg-primary  text-center p-2 text-light'>Update Maincategory
-                            <Link to="/admin/maincategory"><i className='bi bi-arrow-left text-light float-end'></i></Link>
+                        <h5 className='bg-primary  text-center p-2 text-light'>Update Feature
+                            <Link to="/admin/feature"><i className='bi bi-arrow-left text-light float-end'></i></Link>
                         </h5>
                         <form onSubmit={postData}>
                             <div className="row">
@@ -97,11 +87,18 @@ export default function AdminMaincategoryUpdatePage() {
                                     {show && errorMessage.name ? <p className='text-danger text-capitalize'>{errorMessage.name}</p> : null}
                                 </div>
 
-                                <div className="col-md-6 mb-3">
-                                    <label>Pic</label>
-                                    <input type="file" name="pic" onChange={getInputData} className={`form-control ${show && errorMessage.pic ? 'border-danger' : 'border-primary'}`} />
+                                <div className="col-12 mb-3">
+                                    <label>Short Description*</label>
+                                    <textarea name="shortDescription" value={data.shortDescription} onChange={getInputData} placeholder='Short Description' rows={3} className={`form-control ${show && errorMessage.shortDescription ? 'border-danger' : 'border-primary'}`} />
 
-                                    {show && errorMessage.pic ? <p className='text-danger text-capitalize'>{errorMessage.pic}</p> : null}
+                                    {show && errorMessage.shortDescription ? <p className='text-danger text-capitalize'>{errorMessage.shortDescription}</p> : null}
+                                </div>
+
+                                <div className="col-md-6 mb-3">
+                                    <label>Icon*</label>
+                                    <input type="text" name="icon" value={data.icon} onChange={getInputData} className={`form-control ${show && errorMessage.icon ? 'border-danger' : 'border-primary'}`} placeholder="eg <i class='bi bi-list'></i>" />
+
+                                    {show && errorMessage.icon ? <p className='text-danger text-capitalize'>{errorMessage.icon}</p> : null}
                                 </div>
 
                                 <div className='col-md-6 mb-3'>

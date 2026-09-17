@@ -7,8 +7,8 @@ import AdminSidebar from '../../../Components/Admin/AdminSidebar'
 import TextValidator from '../../../Validators/TextValidator'
 import ImageValidaror from '../../../Validators/ImageValidaror'
 
-import { getMaincategory, updateMaincategory } from "../../../Redux/ActionCreators/MaincategoryActionCreators"
-export default function AdminMaincategoryUpdatePage() {
+import { getSubcategory, updateSubcategory } from "../../../Redux/ActionCreators/SubcategoryActionCreators"
+export default function AdminSubcategoryUpdatePage() {
     let { id } = useParams()
     let [data, setData] = useState({
         name: "",
@@ -25,13 +25,13 @@ export default function AdminMaincategoryUpdatePage() {
 
     let navigate = useNavigate()
 
-    let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
+    let SubcategoryStateData = useSelector(state => state.SubcategoryStateData)
     let dispatch = useDispatch()
 
     function getInputData(e) {
         let name = e.target.name
         // let value = name === "pic" ? e.target.files[0] : e.target.value
-        let value = name === "pic" ? "maincategory/" + e.target.files[0].name : e.target.value
+        let value = name === "pic" ? "subcategory/" + e.target.files[0].name : e.target.value
 
         setData({ ...data, [name]: name === "status" ? (value === "1" ? true : false) : value })
         setErrorMessage({ ...errorMessage, [name]: name === "pic" ? ImageValidaror(e) : TextValidator(e) })
@@ -44,39 +44,39 @@ export default function AdminMaincategoryUpdatePage() {
             setShow(true)
         }
         else {
-            let item = MaincategoryStateData.find(x => x.id !== id && x.name.toLocaleLowerCase() === data.name.toLocaleLowerCase())
+            let item = SubcategoryStateData.find(x => x.id !== id && x.name.toLocaleLowerCase() === data.name.toLocaleLowerCase())
             if (item) {
                 setShow(true)
-                setErrorMessage({ ...errorMessage, name: "Maincategory With This Name is Already Exist" })
+                setErrorMessage({ ...errorMessage, name: "Subcategory With This Name is Already Exist" })
                 return
             }
-            dispatch(updateMaincategory({ ...data }))
+            dispatch(updateSubcategory({ ...data }))
 
             // let formData = new FormData()
             // formData.append("id", data.id)
             // formData.append("name", data.name)
             // formData.append("pic", data.pic)
             // formData.append("status", data.status)
-            // dispatch(createMaincategory(formData))
-            // dispatch(updateMaincategory(FormData))
+            // dispatch(createSubcategory(formData))
+            // dispatch(updateSubcategory(FormData))
 
 
-            navigate("/admin/maincategory")
+            navigate("/admin/subcategory")
         }
     }
 
     useEffect(() => {
         (() => {
-            dispatch(getMaincategory())
-            if (MaincategoryStateData.length) {
-                let item = MaincategoryStateData.find(x => x.id === id)
+            dispatch(getSubcategory())
+            if (SubcategoryStateData.length) {
+                let item = SubcategoryStateData.find(x => x.id === id)
                 if (item)
                     setData({ ...data, ...item })
                 else
-                    navigate("/admin/maincategory")
+                    navigate("/admin/subcategory")
             }
         })()
-    }, [MaincategoryStateData.length])
+    }, [SubcategoryStateData.length])
     return (
         <>
             <div className="container-fluid my-3">
@@ -85,8 +85,8 @@ export default function AdminMaincategoryUpdatePage() {
                         <AdminSidebar />
                     </div>
                     <div className="col-md-9">
-                        <h5 className='bg-primary  text-center p-2 text-light'>Update Maincategory
-                            <Link to="/admin/maincategory"><i className='bi bi-arrow-left text-light float-end'></i></Link>
+                        <h5 className='bg-primary  text-center p-2 text-light'>Update Subcategory
+                            <Link to="/admin/subcategory"><i className='bi bi-arrow-left text-light float-end'></i></Link>
                         </h5>
                         <form onSubmit={postData}>
                             <div className="row">

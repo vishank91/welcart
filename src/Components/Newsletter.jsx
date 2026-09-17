@@ -17,7 +17,7 @@ export default function Newsletter() {
                             <div className="col-md-6 wow fadeIn" data-wow-delay="0.5s">
                                 <div className="form-floating mb-3">
                                     <input type="email" className="form-control border-0 bg-light" id="mail" placeholder="Your Email"/>
-                                        <label for="mail">Your Email</label>
+                                        <label htmlFor="mail">Your Email</label>
                                 </div>
                                 <button className="btn btn-primary w-100 py-3" type="submit">Submit Now</button>
                             </div>
