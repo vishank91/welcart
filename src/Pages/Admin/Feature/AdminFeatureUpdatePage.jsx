@@ -5,7 +5,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import AdminSidebar from '../../../Components/Admin/AdminSidebar'
 
 import TextValidator from '../../../Validators/TextValidator'
-import ImageValidaror from '../../../Validators/ImageValidaror'
 
 import { getFeature, updateFeature } from "../../../Redux/ActionCreators/FeatureActionCreators"
 export default function AdminFeatureUpdatePage() {
