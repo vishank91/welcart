@@ -44,10 +44,16 @@ export default function AdminSettingPage() {
 
     function postData(e) {
         e.preventDefault()
+        let items = {
+            ...data,
+            privacyPolicy: privacyPolicy,
+            termsAndConditions: termsAndConditions,
+            refundPolicy: refundPolicy
+        }
         if (SettingStateData.length)
-            dispatch(updateSetting({ ...data }))
+            dispatch(updateSetting({ ...items }))
         else
-            dispatch(createSetting({ ...data }))
+            dispatch(createSetting({ ...items }))
 
         toast("Record Has Been Updated!!!")
     }
