@@ -87,6 +87,16 @@ export default function AdminProductPage() {
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
+                                        <th>Maincategory</th>
+                                        <th>Subcategory</th>
+                                        <th>Brand</th>
+                                        <th>Color</th>
+                                        <th>Size</th>
+                                        <th>Base Price</th>
+                                        <th>Discount</th>
+                                        <th>Final Price</th>
+                                        <th>Stock</th>
+                                        <th>Stock Quantity</th>
                                         <th>Pic</th>
                                         <th>Status</th>
                                         <th></th>
@@ -98,10 +108,32 @@ export default function AdminProductPage() {
                                         return <tr key={index}>
                                             <td>{item.id}</td>
                                             <td>{item.name}</td>
+                                            <td>{item.maincategory.name ?? item.maincategory}</td>
+                                            <td>{item.subcategory.name ?? item.subcategory}</td>
+                                            <td>{item.brand.name ?? item.brand}</td>
                                             <td>
-                                                <a href={`${import.meta.env.VITE_APP_IMAGE_SERVER}${item.pic}`} target='_blank'>
-                                                    <img src={`${import.meta.env.VITE_APP_IMAGE_SERVER}${item.pic}`} height={70} width={80} alt="Category Imasge" />
-                                                </a>
+                                                <div style={{ width: 120 }}>
+                                                    {item.color?.join(", ")}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style={{ width: 120 }}>
+                                                    {item.size?.join(", ")}
+                                                </div>
+                                            </td>
+                                            <td>&#8377;{item.basePrice}</td>
+                                            <td>{item.discount}% Off</td>
+                                            <td>&#8377;{item.finalPrice}</td>
+                                            <td>{item.stock ? "In Stock" : "Out Of Stock"}</td>
+                                            <td>{item.stockQuantity}</td>
+                                            <td>
+                                                <div style={{ width: 440 }}>
+                                                    {item.pic?.map((pic, index) => {
+                                                        return <a key={index} href={`${import.meta.env.VITE_APP_IMAGE_SERVER}${pic}`} target='_blank'>
+                                                            <img src={`${import.meta.env.VITE_APP_IMAGE_SERVER}${pic}`} height={70} className='m-1' width={80} alt="Category Imasge" />
+                                                        </a>
+                                                    })}
+                                                </div>
                                             </td>
                                             <td>{item.status ? "Active" : "Inactive"}</td>
                                             <td>

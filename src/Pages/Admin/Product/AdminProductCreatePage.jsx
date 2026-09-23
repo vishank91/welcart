@@ -73,7 +73,7 @@ export default function AdminProductCreatePage() {
         // let value = name === "pic" ? e.target.files : e.target.value
         let value = name === "pic" ? Array.from(e.target.files).map(file => "product/" + file.name) : e.target.value
 
-        setData({ ...data, [name]: name === "status" || name==="stock" ? (value === "1" ? true : false) : value })
+        setData({ ...data, [name]: name === "status" || name === "stock" ? (value === "1" ? true : false) : value })
         setErrorMessage({ ...errorMessage, [name]: name === "pic" ? ImageValidaror(e) : TextValidator(e) })
     }
 
@@ -109,7 +109,24 @@ export default function AdminProductCreatePage() {
 
             // let formData = new FormData()
             // formData.append("name", data.name)
-            // formData.append("pic", data.pic)
+            // formData.append("maincategory", data.maincategory||MaincategoryStateData[0].id)
+            // formData.append("subcategory", data.subcategory||SubcategoryStateData[0].id)
+            // formData.append("brand", data.brand||BrandStateData[0].id)
+            // formData.append("basePrice", bp)
+            // formData.append("discount", d)
+            // formData.append("finalPrice", fp)
+            // formData.append("stock", data.stock)
+            // formData.append("stockQuantity", sc)
+            // formData.append("description", description)
+            // data.color?.forEach(item => {
+            //     FormData.append("color", item)
+            // })
+            // data.size?.forEach(item => {
+            //     FormData.append("size", item)
+            // })
+            // data.pic?.forEach(item => {
+            //     FormData.append("pic", item)
+            // })
             // formData.append("status", data.status)
             // dispatch(createProduct(formData))
 
@@ -255,7 +272,9 @@ export default function AdminProductCreatePage() {
                                     <label>Pic*</label>
                                     <input type="file" name="pic" multiple onChange={getInputData} className={`form-control ${show && errorMessage.pic ? 'border-danger' : 'border-primary'}`} />
 
-                                    {show && errorMessage.pic ? <p className='text-danger text-capitalize'>{errorMessage.pic}</p> : null}
+                                    {show && errorMessage.pic ? errorMessage.pic?.split("|").map((error, index) => {
+                                        return <p className='text-danger text-capitalize' key={index}>{error}</p>
+                                    }) : null}
                                 </div>
 
                                 <div className='col-md-6 mb-3'>
