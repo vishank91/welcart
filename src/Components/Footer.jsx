@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import Newsletter from './Newsletter'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
+import Newsletter from './Newsletter'
+import { getSetting } from "../Redux/ActionCreators/SettingActionCreators"
 export default function Footer() {
     let [settingData, setSettingData] = useState({
         siteName: import.meta.env.VITE_APP_SITE_NAME,
@@ -16,6 +18,20 @@ export default function Footer() {
         linkedin: import.meta.env.VITE_APP_LINKEDIN,
         youtube: import.meta.env.VITE_APP_YOUTUBE,
     })
+
+    let SettingStateData = useSelector(state => state.SettingStateData)
+    let dispatch = useDispatch()
+
+    useEffect(() => {
+        (() => {
+            dispatch(getSetting())
+            if (SettingStateData.length) {
+                let item = {}
+                Object.keys(settingData).forEach(key => item[key] = SettingStateData[0][key] || settingData[key])
+                setSettingData({ ...item })
+            }
+        })()
+    }, [SettingStateData.length])
     return (
         <>
             <Newsletter />

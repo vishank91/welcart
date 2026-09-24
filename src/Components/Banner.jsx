@@ -8,47 +8,23 @@ export default function Banner() {
                     <div className="row g-0 justify-content-end">
                         <div className="col-lg-6 pt-5">
                             <div className="mt-5">
-                                <h1 className="display-6 text-white text-uppercase mb-4 wow fadeIn" data-wow-delay="0.3s">Why You should Choose Our welding Services</h1>
-                                <p className="text-light mb-4 wow fadeIn" data-wow-delay="0.4s">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit. Curabitur tellus augue, iaculis id elit eget, ultrices pulvinar
-                                    tortor. Quisque vel lorem porttitor, malesuada arcu quis, fringilla risus. Pellentesque eu
-                                    consequat augue.</p>
+                                <h1 className="display-6 text-white text-uppercase mb-4 wow fadeIn" data-wow-delay="0.3s">Why Welcart Makes Your Everyday Online Shopping Simple and Better</h1>
+                                <p className="text-light mb-4 wow fadeIn text-justify" data-wow-delay="0.4s">At Welcart, we focus on making online shopping convenient, reliable, and enjoyable. From quality products and competitive prices to secure payments and dependable delivery, we bring everything together in one place. Our customer-focused approach ensures a smooth shopping journey, helping you discover products easily and shop with confidence every time.</p>
                                 <div className="row g-4 pt-2 mb-4">
                                     <div className="col-sm-6 wow fadeIn" data-wow-delay="0.4s">
-                                        <div className="flex-column text-center border border-5 border-primary p-5">
-                                            <h1 className="text-white" data-toggle="counter-up">9999</h1>
-                                            <p className="text-white text-uppercase mb-0">Satisfied Clients</p>
+                                        <div className="flex-column text-center border border-5 border-primary p-5" style={{ height: 200 }}>
+                                            <h1 className="text-white" data-toggle="counter-up">10000+</h1>
+                                            <p className="text-white text-uppercase mb-0">Satisfied Customers</p>
                                         </div>
                                     </div>
                                     <div className="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                        <div className="flex-column text-center border border-5 border-primary p-5">
-                                            <h1 className="text-white" data-toggle="counter-up">9999</h1>
-                                            <p className="text-white text-uppercase mb-0">Complete Projects</p>
+                                        <div className="flex-column text-center border border-5 border-primary p-5" style={{ height: 200 }}>
+                                            <h1 className="text-white" data-toggle="counter-up">100+</h1>
+                                            <p className="text-white text-uppercase mb-0">Top Brands</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border border-5 border-primary border-bottom-0 p-5">
-                                    <div className="experience mb-4 wow fadeIn" data-wow-delay="0.6s">
-                                        <div className="d-flex justify-content-between mb-2">
-                                            <span className="text-white text-uppercase">Experience</span>
-                                            <span className="text-white">90%</span>
-                                        </div>
-                                        <div className="progress">
-                                            <div className="progress-bar bg-primary" role="progressbar" aria-valuenow="90"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div className="experience wow fadeIn" data-wow-delay="0.7s">
-                                        <div className="d-flex justify-content-between mb-2">
-                                            <span className="text-white text-uppercase">Work Done</span>
-                                            <span className="text-white">95%</span>
-                                        </div>
-                                        <div className="progress">
-                                            <div className="progress-bar bg-primary" role="progressbar" aria-valuenow="95"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
