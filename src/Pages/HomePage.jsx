@@ -1,13 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+
+
 import About from '../Components/About'
 import Feature from '../Components/Feature'
 import Banner from '../Components/Banner'
 import ProductSlider from '../Components/ProductSlider'
 import Products from '../Components/Products'
 import Testimonial from '../Components/Testimonial'
-import { Link } from 'react-router-dom'
+
+import { getProduct } from "../Redux/ActionCreators/ProductActionCreators"
+import { getMaincategory } from "../Redux/ActionCreators/MaincategoryActionCreators"
+import Faq from '../Components/Faq'
 
 export default function HomePage() {
+    let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
+    let ProductStateData = useSelector(state => state.ProductStateData)
+
+    let dispatch = useDispatch()
+
+    useEffect(() => {
+        (() => dispatch(getMaincategory()))()
+    }, [MaincategoryStateData.length])
+
+    useEffect(() => {
+        (() => dispatch(getProduct()))()
+    }, [ProductStateData.length])
+
     return (
         <>
             <div className="container-fluid p-0 mb-6 wow fadeIn" data-wow-delay="0.1s">
@@ -56,9 +76,15 @@ export default function HomePage() {
             <About />
             <Feature />
             <Banner />
-            <ProductSlider />
-            <Products />
-            
+            {MaincategoryStateData?.filter(x => x.status).map((item, index) => {
+                return <ProductSlider
+                    key={index}
+                    title={item.name}
+                    data={ProductStateData.filter(x => x.status && x.maincategory === item.name)} />
+            })}
+            <Faq/>
+            <Products data={ProductStateData.filter(x=>x.status).slice(0,24)} />
+
             <Testimonial />
         </>
     )
