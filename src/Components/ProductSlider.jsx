@@ -37,7 +37,9 @@ export default function ProductSlider({ title, data }) {
             <div className="container-fluid service pt-6 pb-6">
                 <div className="container">
                     <div className="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: "600px" }}>
-                        <h1 className="display-6 text-uppercase mb-5">Latest Products For {title}</h1>
+                        {title === "Product" ?
+                            <h1 className="display-6 text-uppercase mb-5">Other Related Products</h1> :
+                            <h1 className="display-6 text-uppercase mb-5">Latest Products For {title}</h1>}
                     </div>
                     <div className="row g-4">
                         <Swiper {...sliderOptions}>

@@ -21,6 +21,9 @@ export default function ShopPage() {
     color: [],
     size: []
   })
+  let [sortFilter, setSortFilter] = useState("1")
+  let [search, setSearch] = useState("")
+
 
   let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
   let SubcategoryStateData = useSelector(state => state.SubcategoryStateData)
@@ -37,6 +40,43 @@ export default function ShopPage() {
       arr.push(value)
 
     setSelected({ ...selected, [key]: arr })
+    applySelectFilter({ ...selected, [key]: arr })
+  }
+
+  function applySelectFilter(selected) {
+    let data = ProductStateData.filter(x => x.status && (
+      (selected.maincategory?.length === 0 || selected.maincategory?.includes(x.maincategory)) &&
+      (selected.subcategory?.length === 0 || selected.subcategory?.includes(x.subcategory)) &&
+      (selected.brand?.length === 0 || selected.brand?.includes(x.brand)) &&
+      (selected.color?.length === 0 || (new Set(selected.color).intersection(new Set(x.color)).size > 0)) &&
+      (selected.size?.length === 0 || (new Set(selected.size).intersection(new Set(x.size)).size > 0))
+    ))
+    applySelectFilter(sortFilter, data)
+  }
+
+  function applySearchFilter() {
+    let data = ProductStateData.filter(x => x.status && (
+      (x.name?.toLocaleLowerCase()?.includes(search.toLocaleLowerCase())) &&
+      (x.maincategory?.toLocaleLowerCase() === search.toLocaleLowerCase()) &&
+      (x.subcategory?.toLocaleLowerCase() === search.toLocaleLowerCase()) &&
+      (x.brand?.toLocaleLowerCase() === search.toLocaleLowerCase()) &&
+      (x.description?.toLocaleLowerCase()?.includes(search.toLocaleLowerCase()))
+    ))
+    applySortFilter(sortFilter, data)
+  }
+
+  function applySortFilter(sortFilter, data) {
+    if (sortFilter === "1")
+      data = data.sort((x, y) => y.id?.localeCompare(x.id))
+    else if (sortFilter === "2")
+      data = data.sort((x, y) => y.finalPrice - x.finalPrice)
+    else if (sortFilter === "3")
+      data = data.sort((x, y) => x.finalPrice - y.finalPrice)
+    else
+      data = data.sort((x, y) => y.discount - x.discount)
+
+    setData([...data])
+    setSortFilter(sortFilter)
   }
 
   useEffect(() => {
@@ -119,6 +159,32 @@ export default function ShopPage() {
 
           </div>
           <div className="col-md-9">
+
+            <div className="row">
+
+              <div className="col-md-9 mb-3">
+                <form onSubmit={(e) => {
+                  e.preventDefault()
+                  applySearchFilter()
+                }}>
+                  <div className="btn-group w-100">
+                    <input type="search" name="search" onChange={(e) => setSearch(e.target.value)} placeholder='Search Products By Name, Category, Brand Etc' className='form-control border-primary' />
+                    <button className='btn btn-primary'>Search</button>
+                  </div>
+                </form>
+              </div>
+
+              <div className="col-md-3 mb-3">
+                <select name="sort" onClick={(e) => applySortFilter(e.target.value, data)} className='form-select border-primary'>
+                  <option value="1">Latest</option>
+                  <option value="2">Price : High To Low</option>
+                  <option value="3">Price : Low To High</option>
+                  <option value="4">Discount</option>
+                </select>
+              </div>
+
+            </div>
+
             <div className="container-fluid service pb-6">
               <div className="container">
                 <div className="row g-4">
