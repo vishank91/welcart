@@ -34,6 +34,12 @@ export default function ProductPage() {
   let [data, setData] = useState({})
   let [releatedProducts, setRelatedProducts] = useState([])
 
+  let [selected, setSelected] = useState({
+    color: "",
+    size: "",
+    quantity: 1
+  })
+
   let ProductStateData = useSelector(state => state.ProductStateData)
   let dispatch = useDispatch()
 
@@ -45,6 +51,7 @@ export default function ProductPage() {
         if (item) {
           setData({ ...item })
           setRelatedProducts(ProductStateData.filter(x => x.maincategory === item.maincategory))
+          setSelected({ ...selected, color: item.color[0], size: item.size[0] })
         }
         else
           window.history.back()
@@ -92,6 +99,62 @@ export default function ProductPage() {
                     <td>{data.stock ? `${data.stockQuantity} Letf In Stock` : "Out Of Stock"}</td>
                   </tr>
                   <tr>
+                    <th>Color</th>
+                    <td>
+                      <div className="btn-group">
+                        {data.color?.map((item, index) => {
+                          return <button
+                            onClick={() => setSelected({ ...selected, color: item })}
+                            key={index}
+                            className={`btn border-1 border-primary ${selected.color === item ? 'btn-primary' : 'btn-light'}`}>
+                            {item}
+                          </button>
+                        })}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Size</th>
+                    <td>
+                      <div className="btn-group">
+                        {data.size?.map((item, index) => {
+                          return <button
+                            onClick={() => setSelected({ ...selected, size: item })}
+                            key={index}
+                            className={`btn border-1 border-primary ${selected.size === item ? 'btn-primary' : 'btn-light'}`}>
+                            {item}
+                          </button>
+                        })}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colSpan={2}>
+                      <div className="row">
+                        {data.stock ?
+                          <div className="col-md-4">
+                            <div className="btn-group w-100">
+                              <button
+                                className='btn btn-primary'
+                                onClick={() => selected.quantity > 1 ? setSelected({ ...selected, quantity: selected.quantity - 1 }) : null}>
+                                <i className='bi bi-dash'></i>
+                              </button>
+                              <h3 className='text-center' style={{ width: "40%" }}>{selected.quantity}</h3>
+                              <button
+                                className='btn btn-primary'
+                                onClick={() => selected.quantity < data.stockQuantity ? setSelected({ ...selected, quantity: selected.quantity + 1 }) : null}>
+                                <i className='bi bi-plus'></i>
+                              </button>
+                            </div>
+                          </div> : null}
+                        <div className="col-md-8">
+                          <div className="btn-group w-100">
+                            {data.stock ? <button className='btn btn-primary'><i className='bi bi-cart-check'></i> Add to Cart</button> : null}
+                            <button className='btn btn-secondary text-light'><i className='bi bi-heart-fill'></i> Add to Wishlist</button>
+                          </div>
+                        </div>
+                      </div>
+                    </th>
                   </tr>
                   <tr>
                     <th>Description</th>
@@ -106,7 +169,7 @@ export default function ProductPage() {
         </div>
 
         <div className="mt-3">
-          <ProductSlider title="Product" data={releatedProducts} />
+          {releatedProducts.length ? <ProductSlider title="Product" data={releatedProducts} /> : null}
         </div>
       </div>
     </>

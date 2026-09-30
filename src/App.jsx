@@ -41,6 +41,7 @@ import AdminSettingPage from './Pages/Admin/Setting/AdminSettingPage'
 import AdminProductPage from './Pages/Admin/Product/AdminProductPage'
 import AdminProductCreatePage from './Pages/Admin/Product/AdminProductCreatePage'
 import AdminProductUpdatePage from './Pages/Admin/Product/AdminProductUpdatePage'
+import SignupPage from './Pages/User/SignupPage'
 
 export default function App() {
   return (
@@ -55,6 +56,9 @@ export default function App() {
         <Route path='/faq' element={<FaqPage />} />
         <Route path='/testimonial' element={<TestimonialPage />} />
         <Route path='/contactus' element={<ContactUsPage />} />
+
+        <Route path='/signup' element={<SignupPage />} />
+
 
         {/* Admin Routes */}
         <Route path='/admin' element={<AdminHomePage />} />
