@@ -42,6 +42,7 @@ import AdminProductPage from './Pages/Admin/Product/AdminProductPage'
 import AdminProductCreatePage from './Pages/Admin/Product/AdminProductCreatePage'
 import AdminProductUpdatePage from './Pages/Admin/Product/AdminProductUpdatePage'
 import SignupPage from './Pages/User/SignupPage'
+import LoginPage from './Pages/User/LoginPage'
 
 export default function App() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
         <Route path='/testimonial' element={<TestimonialPage />} />
         <Route path='/contactus' element={<ContactUsPage />} />
 
+        <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
 
 

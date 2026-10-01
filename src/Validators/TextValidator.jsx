@@ -44,7 +44,7 @@ export default function TextValidator(e) {
             else
                 return ""
 
-        case "pasword":
+        case "password":
             if (!value || value.length === 0)
                 return name + " Field is Mendatory"
             else if (!schema.validate(value))
