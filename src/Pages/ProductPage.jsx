@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCube } from 'swiper/modules';
@@ -11,9 +11,11 @@ import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 
 import Breadcrum from '../Components/Breadcrum'
+import ProductSlider from '../Components/ProductSlider'
 
 import { getProduct } from "../Redux/ActionCreators/ProductActionCreators"
-import ProductSlider from '../Components/ProductSlider'
+import { getCart, createCart } from "../Redux/ActionCreators/CartActionCreators"
+import { getWishlist, createWishlist } from "../Redux/ActionCreators/WishlistActionCreators"
 
 const sliderOptions = {
   effect: 'cube',
@@ -41,7 +43,53 @@ export default function ProductPage() {
   })
 
   let ProductStateData = useSelector(state => state.ProductStateData)
+  let CartStateData = useSelector(state => state.CartStateData)
+  let WishlistStateData = useSelector(state => state.WishlistStateData)
+
   let dispatch = useDispatch()
+  let navigate = useNavigate()
+
+  function addToCart() {
+    let cart = CartStateData.find(x => x.user === localStorage.getItem("userid") && x.product === id)
+    if (!cart) {
+      let item = {
+        user: localStorage.getItem("userid"),
+        product: data.id,
+        ...selected,
+        total: selected.quantity * data.finalPrice,
+
+        //Remove Following Items in Case of Real Backend
+        name: data.name,
+        brand: data.brand,
+        finalPrice: data.finalPrice,
+        stockQuantity: data.stockQuantity,
+        pic: data.pic[0]
+      }
+      dispatch(createCart(item))
+    }
+    navigate("/cart")
+  }
+
+  function addToWishlist() {
+    let wishlist = WishlistStateData.find(x => x.user === localStorage.getItem("userid") && x.product === id)
+    if (!wishlist) {
+      let item = {
+        user: localStorage.getItem("userid"),
+        product: data.id,
+
+        //Remove Following Items in Case of Real Backend
+        name: data.name,
+        color: data.color,
+        size: data.size,
+        brand: data.brand,
+        finalPrice: data.finalPrice,
+        stockQuantity: data.stockQuantity,
+        pic: data.pic[0]
+      }
+      dispatch(createWishlist(item))
+    }
+    navigate("/profile?option=Wishlist")
+  }
 
   useEffect(() => {
     (() => {
@@ -58,6 +106,15 @@ export default function ProductPage() {
       }
     })()
   }, [ProductStateData.length, id])
+
+
+  useEffect(() => {
+    (() => dispatch(getWishlist()))()
+  }, [WishlistStateData.length])
+
+  useEffect(() => {
+    (() => dispatch(getCart()))()
+  }, [CartStateData.length])
   return (
     <>
       <Breadcrum title={data.name ?? "Product"} />
@@ -149,8 +206,8 @@ export default function ProductPage() {
                           </div> : null}
                         <div className="col-md-8">
                           <div className="btn-group w-100">
-                            {data.stock ? <button className='btn btn-primary'><i className='bi bi-cart-check'></i> Add to Cart</button> : null}
-                            <button className='btn btn-secondary text-light'><i className='bi bi-heart-fill'></i> Add to Wishlist</button>
+                            {data.stock ? <button className='btn btn-primary' onClick={addToCart}><i className='bi bi-cart-check'></i> Add to Cart</button> : null}
+                            <button className='btn btn-secondary text-light' onClick={addToWishlist}><i className='bi bi-heart-fill'></i> Add to Wishlist</button>
                           </div>
                         </div>
                       </div>

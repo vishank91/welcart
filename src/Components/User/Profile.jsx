@@ -1,29 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Profile() {
+    let [data, setData] = useState({})
+
+    useEffect(() => {
+        (async () => {
+            let response = await fetch(`${import.meta.env.VITE_APP_BACKEND_SERVER}/user/${localStorage.getItem("userid")}`, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+            response = await response.json()
+            setData(response)
+        })()
+    }, [])
     return (
         <>
             <table className='table table-bordered table-striped'>
                 <tbody>
                     <tr>
                         <th>Name</th>
-                        <td>Nitin Chauhan</td>
+                        <td>{data.name}</td>
                     </tr>
                     <tr>
                         <th>User Name</th>
-                        <td>nitin</td>
+                        <td>{data.username}</td>
                     </tr>
                     <tr>
                         <th>Email Address</th>
-                        <td>vishankchauhan@gmail.com</td>
+                        <td>{data.email}</td>
                     </tr>
                     <tr>
                         <th>Phone</th>
-                        <td>9873848046</td>
+                        <td>{data.phone}</td>
                     </tr>
                     <tr>
                         <th>Role</th>
-                        <td>Super Admin</td>
+                        <td>{data.role}</td>
                     </tr>
                 </tbody>
             </table>

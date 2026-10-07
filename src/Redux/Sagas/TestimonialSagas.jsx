@@ -1,0 +1,35 @@
+import { put, takeEvery } from "redux-saga/effects"
+import { CREATE_TESTIMONIAL, CREATE_TESTIMONIAL_RED, DELETE_TESTIMONIAL, DELETE_TESTIMONIAL_RED, GET_TESTIMONIAL, GET_TESTIMONIAL_RED, UPDATE_TESTIMONIAL, UPDATE_TESTIMONIAL_RED } from "../Constants"
+import { createRecordAPI, deleteRecordAPI, getRecordAPI, updateRecordAPI } from "./APICallingService/index"
+// import { createMultipartRecordAPI, deleteRecordAPI, getRecordAPI, updateMultipartRecordAPI } from "./APICallingService/index"
+
+function* createSaga(action) {                                                              //Worker Saga
+    let response = yield createRecordAPI("testimonial", action.payload)                    //Used When Payload Has No File Field
+    // let response = yield createMultipartRecordAPI("testimonial", action.payload)        //Used When Payload Has File Field
+    yield put({ type: CREATE_TESTIMONIAL_RED, payload: response })
+}
+
+function* getSaga() {                                                                      //Worker Saga
+    let response = yield getRecordAPI("testimonial")
+    yield put({ type: GET_TESTIMONIAL_RED, payload: response })
+}
+
+function* updateSaga(action) {                                                              //Worker Saga
+    yield updateRecordAPI("testimonial", action.payload)                                   //Used When Payload Has No File Field
+    yield put({ type: UPDATE_TESTIMONIAL_RED, payload: action.payload })
+    // let response = yield updateMultipartRecordAPI("testimonial", action.payload)        //Used When Payload Has File Field
+    // yield put({ type: UPDATE_TESTIMONIAL_RED, payload: response })
+}
+
+function* deleteSaga(action) {                                                              //Worker Saga
+    yield deleteRecordAPI("testimonial", action.payload)
+    put({ type: DELETE_TESTIMONIAL_RED, payload: action.payload })
+}
+
+
+export default function* TestimonialSagas() {
+    yield takeEvery(CREATE_TESTIMONIAL, createSaga)                                        //Watcher Saga
+    yield takeEvery(GET_TESTIMONIAL, getSaga)                                              //Watcher Saga
+    yield takeEvery(UPDATE_TESTIMONIAL, updateSaga)                                        //Watcher Saga
+    yield takeEvery(DELETE_TESTIMONIAL, deleteSaga)                                        //Watcher Saga
+}       

@@ -43,6 +43,9 @@ import AdminProductCreatePage from './Pages/Admin/Product/AdminProductCreatePage
 import AdminProductUpdatePage from './Pages/Admin/Product/AdminProductUpdatePage'
 import SignupPage from './Pages/User/SignupPage'
 import LoginPage from './Pages/User/LoginPage'
+import ProfilePage from './Pages/User/ProfilePage'
+import CartPage from './Pages/User/CartPage'
+import CheckoutPage from './Pages/User/CheckoutPage'
 
 export default function App() {
   return (
@@ -60,6 +63,11 @@ export default function App() {
 
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
+
+        {/* User Routes */}
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/checkout' element={<CheckoutPage />} />
 
 
         {/* Admin Routes */}
